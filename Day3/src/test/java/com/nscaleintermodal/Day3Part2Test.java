@@ -17,6 +17,6 @@ public class Day3Part2Test {
     public void part1ScoreTest(){
         String dataFileName = this.getClass().getResource("input.txt").getFile();
         Day3Part2 testObject = new Day3Part2(dataFileName);
-        assertThat(testObject.priorityTotal()).isEqualTo(8185);
+        assertThat(testObject.priorityTotal()).isEqualTo(2817);
     }
 }
