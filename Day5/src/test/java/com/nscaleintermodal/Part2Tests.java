@@ -7,16 +7,18 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class Part2Tests {
 
     @Test
-    public void testOverLaps(){
+    public void testMoves(){
         String dataFileName = this.getClass().getResource("testdata.txt").getFile();
         Part2 testObject = new Part2(dataFileName);
-        //assertThat(testObject.overlaps()).isEqualTo(4);
+        testObject.moves();
+        assertThat(testObject.result()).isEqualTo("MCD");
     }
 
     @Test
-    public void part1OverLapsTest(){
+    public void par2Moves(){
         String dataFileName = this.getClass().getResource("input.txt").getFile();
         Part2 testObject = new Part2(dataFileName);
-        //assertThat(testObject.overlaps()).isEqualTo(928);
+        testObject.moves();
+        assertThat(testObject.result()).isEqualTo("QZFJRWHGS");
     }
 }

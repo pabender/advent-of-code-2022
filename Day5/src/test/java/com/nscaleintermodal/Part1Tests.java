@@ -8,16 +8,18 @@ public class Part1Tests {
 
 
     @Test
-    public void testOverLaps(){
+    public void testMoves(){
         String dataFileName = this.getClass().getResource("testdata.txt").getFile();
         Part1 testObject = new Part1(dataFileName);
-        //assertThat(testObject.overlaps()).isEqualTo(2);
+        testObject.moves();
+        assertThat(testObject.result()).isEqualTo("CMZ");
     }
 
     @Test
-    public void part1OverLapsTest(){
+    public void part1Moves(){
         String dataFileName = this.getClass().getResource("input.txt").getFile();
         Part1 testObject = new Part1(dataFileName);
-        //assertThat(testObject.overlaps()).isEqualTo(599);
+        testObject.moves();
+        assertThat(testObject.result()).isEqualTo("ZSQVCCJLL");
     }
 }
