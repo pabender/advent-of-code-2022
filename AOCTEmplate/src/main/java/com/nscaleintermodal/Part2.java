@@ -19,19 +19,9 @@ public class Part2 {
             lines = new ArrayList<>();
         }
 
-        //rangePairs = lines.stream().map(s -> parseRange(s)).collect(Collectors.toList());
-
+    }
+    public int solution(){
+        return 0;
     }
 
-    /*private RangePairs parseRange(String line){
-        int start1=Integer.parseInt(line.substring(0,line.indexOf('-')));
-        int end1=Integer.parseInt(line.substring(line.indexOf('-')+1,line.indexOf(',')));
-        int start2=Integer.parseInt(line.substring(line.indexOf(',')+1,line.lastIndexOf('-')));
-        int end2=Integer.parseInt(line.substring(line.lastIndexOf('-')+1));
-
-        return new RangePairs(start1,end1,start2,end2);
-    }*/
-    /*public long overlaps() {
-        return rangePairs.stream().filter(o-> o.subRange()).count();
-    }*/
 }

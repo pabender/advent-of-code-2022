@@ -10,13 +10,13 @@ public class Part2Tests {
     public void testOverLaps(){
         String dataFileName = this.getClass().getResource("testdata.txt").getFile();
         Part2 testObject = new Part2(dataFileName);
-        //assertThat(testObject.overlaps()).isEqualTo(4);
+        assertThat(testObject.solution()).isEqualTo(4);
     }
 
     @Test
     public void part1OverLapsTest(){
         String dataFileName = this.getClass().getResource("input.txt").getFile();
         Part2 testObject = new Part2(dataFileName);
-        //assertThat(testObject.overlaps()).isEqualTo(928);
+        assertThat(testObject.solution()).isEqualTo(928);
     }
 }
