@@ -31,7 +31,7 @@ public class Part2 {
             String[] parts = lines.get(i+1).split(":");
             String[] values = parts[1].split(",");
             for(int j=0;j<values.length;j++){
-                m.toss(BigDecimal.valueOf(Long.parseLong(values[j].substring(1))));
+                m.toss(Integer.parseInt(values[j].substring(1)));
             }
             parts = lines.get(i+2).split(":");
             values = parts[1].split(" ");
@@ -58,6 +58,6 @@ public class Part2 {
 
     public BigInteger solution(){
         Collections.sort(monkeys);
-        return monkeys.get(monkeys.size()-2).getExamined().multiply(monkeys.get(monkeys.size()-1).getExamined());
+        return BigInteger.valueOf(monkeys.get(monkeys.size()-2).getExamined()).multiply(BigInteger.valueOf(monkeys.get(monkeys.size()-1).getExamined()));
     }
 }

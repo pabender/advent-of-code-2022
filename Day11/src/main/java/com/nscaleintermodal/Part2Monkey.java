@@ -1,15 +1,13 @@
 package com.nscaleintermodal;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Part2Monkey implements Comparable{
 
-    private List<BigDecimal> items;
-    private BigInteger examined;
+    private List<Value> items;
+    private int examined = 0;
     private String operand;
     private String operator;
 
@@ -17,10 +15,9 @@ public class Part2Monkey implements Comparable{
     private int tossToIfTrue;
     private int tossToIfFalse;
 
-    private BigDecimal divisibilityTest;
+    private int divisibilityTest;
 
     public Part2Monkey(int monkeyID){
-        examined = BigInteger.ZERO;
         items = new ArrayList<>();
         this.monkeyID = monkeyID;
     }
@@ -28,57 +25,73 @@ public class Part2Monkey implements Comparable{
         return items.size();
     }
 
-    public void toss(BigDecimal i) {
+    public void toss(int i) {
+        items.add(new Value(i));
+    }
+
+    public void toss(Value i) {
         items.add(i);
     }
 
     public void examineAll(List<Part2Monkey> monkeys) {
-        List<BigDecimal> keepList =new ArrayList();
-        for(BigDecimal i:items){
-            BigDecimal newWorryLevel = calculateNewWorryLevel(i);
+        List<Value> keepList =new ArrayList();
+        for(Value i:items){
+            Value newWorryLevel = calculateNewWorryLevel(i);
+            //newWorryLevel = newWorryLevel/3;
             int tossTo = tossToMonkey(newWorryLevel);
             if(tossTo==monkeyID) {
-                keepList.add(newWorryLevel);
+                if(newWorryLevel.divisibleBy(divisibilityTest)) {
+                    newWorryLevel.divide(divisibilityTest);
+                    keepList.add(newWorryLevel);
+                } else {
+                    keepList.add(newWorryLevel);
+                }
             } else {
                 if(!monkeys.isEmpty()){
-                    monkeys.get(tossTo).toss(newWorryLevel);
+                    if(newWorryLevel.divisibleBy(divisibilityTest)) {
+                        newWorryLevel.divide(divisibilityTest);
+                        monkeys.get(tossTo).toss(newWorryLevel);
+                    } else {
+                        monkeys.get(tossTo).toss(newWorryLevel);
+                    }
                 }
             }
-            examined=examined.add(BigInteger.valueOf(1l));
+            examined++;
         }
         items = keepList;
 
     }
 
-    private int tossToMonkey(BigDecimal newWorryLevel) {
-        BigDecimal result[]=newWorryLevel.divideAndRemainder(divisibilityTest);
-        return (result[1].equals(BigInteger.valueOf(0)))?tossToIfTrue:tossToIfFalse;
+    private int tossToMonkey(Value newWorryLevel) {
+        return (newWorryLevel.divisibleBy(divisibilityTest )?tossToIfTrue:tossToIfFalse);
     }
 
-    private BigDecimal calculateNewWorryLevel(BigDecimal i) {
+    private Value calculateNewWorryLevel(Value i) {
         switch(operator) {
             case "*": return multiply(i);
             case "+": return add(i);
         }
-        return BigDecimal.valueOf(0);
+        return new Value(0);
     }
 
-    private BigDecimal add(BigDecimal i) {
-        return i.add(getOperand(i));
+    private Value add(Value i) {
+        i.add(getOperand(i));
+        return i;
     }
 
-    private BigDecimal getOperand(BigDecimal i) {
+    private Value getOperand(Value i) {
         if(operand.equals("old")){
             return i;
         }
-        return BigDecimal.valueOf(Integer.parseInt(operand));
+        return new Value(Integer.parseInt(operand));
     }
 
-    private BigDecimal multiply(BigDecimal i) {
-        return i.multiply(getOperand(i));
+    private Value multiply(Value i) {
+        i.multiply(getOperand(i));
+        return i;
     }
 
-    public BigInteger getExamined() {
+    public int getExamined() {
         return examined;
     }
 
@@ -107,11 +120,11 @@ public class Part2Monkey implements Comparable{
     public int compareTo(Object o) {
         if(! (o instanceof Part2Monkey))
             return 0;
-        return getExamined().compareTo(((Part2Monkey)o).getExamined());
+        return(getExamined() - ((Part2Monkey)o).getExamined());
     }
 
     public void setDivisibilityTest(int divTest) {
-        this.divisibilityTest = BigDecimal.valueOf(divTest);
+        this.divisibilityTest = divTest;
     }
 
     public void setTossToIfTrue(int tossToIfTrue) {

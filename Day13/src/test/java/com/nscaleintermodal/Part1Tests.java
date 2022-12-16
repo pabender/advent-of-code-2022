@@ -4,19 +4,20 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class Part2Tests {
+public class Part1Tests {
+
 
     @Test
     public void testSolution(){
         String dataFileName = this.getClass().getResource("testdata.txt").getFile();
-        Part2 testObject = new Part2(dataFileName);
-        assertThat(testObject.solution()).isEqualTo(4);
+        Part1 testObject = new Part1(dataFileName);
+        assertThat(testObject.solution()).isEqualTo(13);
     }
 
     @Test
-    public void part2Solution(){
+    public void part1Solution(){
         String dataFileName = this.getClass().getResource("input.txt").getFile();
-        Part2 testObject = new Part2(dataFileName);
-        assertThat(testObject.solution()).isEqualTo(928);
+        Part1 testObject = new Part1(dataFileName);
+        assertThat(testObject.solution()).isEqualTo(599);
     }
 }
